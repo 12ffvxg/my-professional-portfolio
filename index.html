@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ملف المبرمج المحترف: أحمد خالد - صفحة متكاملة ومستجيبة</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* تعريف المتغيرات وتنسيق إعادة التعيين العام */
+      :root {
+        --dark-bg: #1a1a2e;
+        --dark-card: #2e2e4a;
+        --accent-color: #00adb5;
+        --secondary-accent: #bb86fc;
+        --text-light: #e0e0e0;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Tajawal", "Roboto", sans-serif;
+        background-color: var(--dark-bg);
+        color: var(--text-light);
+        line-height: 1.7;
+        padding-top: 60px;
+        overflow-x: hidden; /* **تحسين جديد:** لمنع ظهور شريط التمرير الأفقي على الهواتف */
+      }
+
+      /* شريط التنقل الثابت (Sticky Navigation Bar) */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(30, 30, 46, 0.95);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        padding: 15px 0;
+        direction: rtl;
+      }
+
+      .navbar a {
+        color: var(--text-light);
+        text-decoration: none;
+        padding: 0 20px;
+        font-size: 1em;
+        font-weight: 700;
+        transition: color 0.3s ease, transform 0.2s ease;
+        white-space: nowrap; /* **تحسين جديد:** منع انكسار النص في الروابط */
+      }
+
+      .navbar a:hover,
+      .navbar a.active {
+        color: var(--accent-color);
+        transform: scale(1.05);
+      }
+
+      /* تنسيق الحاوية الرئيسية */
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* تنسيق الأقسام بشكل عام */
+      section {
+        padding: 80px 0;
+        border-bottom: 1px solid var(--dark-card);
+        min-height: 70vh;
+      }
+
+      /* تنسيق العناوين الفرعية للأقسام */
+      h2 {
+        font-size: 2.8em;
+        color: var(--accent-color);
+        text-align: center;
+        margin-bottom: 60px;
+        padding-bottom: 10px;
+        position: relative;
+      }
+
+      h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 50%;
+        transform: translateX(50%);
+        width: 80px;
+        height: 4px;
+        background-color: var(--secondary-accent);
+        border-radius: 2px;
+      }
+
+      /* قسم المقدمة (Hero Section) */
+      #intro {
+        text-align: center;
+        background-color: var(--dark-card);
+        padding: 100px 0;
+        border-radius: 0 0 20px 20px;
+      }
+
+      #intro h1 {
+        font-size: 4em;
+        margin-bottom: 10px;
+        color: var(--text-light);
+      }
+
+      #intro .role {
+        font-size: 1.8em;
+        color: var(--secondary-accent);
+        margin-bottom: 40px;
+        display: block;
+      }
+
+      /* *********************** قسم الشهادات (Certificates) ************************ */
+      .awards-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        text-align: right;
+      }
+
+      .award-card {
+        background-color: var(--dark-card);
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        border-right: 4px solid var(--accent-color);
+        transition: transform 0.3s ease;
+      }
+
+      .award-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+      }
+
+      .award-card h3 {
+        color: var(--accent-color);
+        margin-bottom: 8px;
+        font-size: 1.4em;
+      }
+
+      .award-card p {
+        font-size: 1em;
+        color: #b0b0b0;
+      }
+
+      /* *********************** قسم المهارات (Skills) ************************ */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .skill-item {
+        text-align: right;
+      }
+
+      .skill-item h4 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        color: var(--secondary-accent);
+      }
+
+      /* تصميم شريط التقدم (Progress Bar) */
+      .progress-bar-container {
+        background-color: #3a3a5a;
+        border-radius: 10px;
+        height: 20px;
+        overflow: hidden;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      .progress-bar {
+        height: 100%;
+        background-color: var(--accent-color);
+        width: 0;
+        transition: width 1.5s ease-in-out;
+        text-align: center;
+        color: var(--dark-bg);
+        line-height: 20px;
+        font-weight: bold;
+        font-size: 0.8em;
+      }
+
+      /* *********************** قسم المشاريع (Projects) ************************ */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+      }
+
+      .project-card {
+        background-color: var(--dark-card);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease;
+        text-align: right;
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .project-card-content {
+        padding: 25px;
+      }
+
+      .project-card h3 {
+        color: var(--accent-color);
+        font-size: 1.5em;
+        margin-bottom: 10px;
+      }
+
+      .project-card p {
+        font-size: 0.95em;
+        color: #c0c0c0;
+        margin-bottom: 15px;
+      }
+
+      .project-card .tags span {
+        display: inline-block;
+        background-color: #3a3a5a;
+        color: var(--text-light);
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8em;
+        margin-left: 5px;
+        margin-top: 5px;
+      }
+
+      /* *********************** قسم التواصل (Contact) ************************ */
+      #contact {
+        text-align: center;
+      }
+
+      .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: right;
+        background-color: var(--dark-card);
+        padding: 40px;
+        border-radius: 10px;
+      }
+
+      .contact-form label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--secondary-accent);
+        font-weight: 700;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #3a3a5a;
+        border-radius: 6px;
+        background-color: #121220;
+        color: var(--text-light);
+        font-size: 1em;
+        transition: border-color 0.3s ease;
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        border-color: var(--accent-color);
+        outline: none;
+      }
+
+      .submit-button {
+        background-color: var(--accent-color);
+        color: var(--dark-bg);
+        border: none;
+        padding: 15px 30px;
+        border-radius: 8px;
+        font-size: 1.1em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        width: 100%;
+      }
+
+      .submit-button:hover {
+        background-color: #007a80;
+        transform: translateY(-2px);
+      }
+
+      /* *********************** التذييل (Footer) ************************ */
+      footer {
+        text-align: center;
+        padding: 30px 0;
+        border-top: 1px solid #3a3a5a;
+        font-size: 0.9em;
+        color: #777;
+      }
+
+      /* *************************************************************** */
+      /* ********* استعلامات الوسائط (Media Queries) - تعزيز الاستجابة ********* */
+      /* *************************************************************** */
+
+      /* التجاوب للأجهزة اللوحية (Tablet) */
+      @media (max-width: 992px) {
+        .container {
+          padding: 0 15px; /* تقليل المسافة الجانبية */
+        }
+        .awards-section,
+        .skills-grid,
+        .projects-grid {
+          grid-template-columns: repeat(
+            auto-fit,
+            minmax(300px, 1fr)
+          ); /* تظل بطاقتين أو ثلاث حسب العرض */
+        }
+      }
+
+      /* التجاوب للهواتف الذكية (Mobile) */
+      @media (max-width: 600px) {
+        /* تكييف شريط التنقل على الهواتف */
+        .navbar {
+          justify-content: space-around; /* توزيع الروابط بالتساوي */
+          padding: 10px 0;
+        }
+        .navbar a {
+          padding: 0 5px; /* تقليل المسافة بين الروابط */
+          font-size: 0.85em; /* تصغير حجم الخط */
+        }
+
+        /* تصغير العناوين لتناسب الشاشة */
+        #intro h1 {
+          font-size: 3em;
+        }
+        #intro .role {
+          font-size: 1.4em;
+        }
+        h2 {
+          font-size: 2em;
+          margin-bottom: 40px;
+        }
+
+        /* جعل جميع الأقسام تتكدس عموديًا */
+        .awards-section,
+        .skills-grid,
+        .projects-grid {
+          grid-template-columns: 1fr; /* عمود واحد فقط لسهولة القراءة والضغط */
+        }
+
+        /* تقليل المسافات في الأقسام */
+        section {
+          padding: 50px 0;
+        }
+
+        /* تحسين مظهر بطاقات الشهادات على الهاتف */
+        .award-card,
+        .project-card {
+          margin: 0 5px;
+        }
+
+        /* إزالة تأثير الرفع في الهواتف لتفادي المشاكل اللمسية */
+        .award-card:hover,
+        .project-card:hover {
+          transform: none;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* التأكد من أن حقول النموذج تستجيب بشكل صحيح */
+        .contact-form {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="#intro" class="nav-link" data-section="intro">ملف التعريف</a>
+      <a href="#certificates" class="nav-link" data-section="certificates"
+        >الشهادات</a
+      >
+      <a href="#skills" class="nav-link" data-section="skills">المهارات</a>
+      <a href="#projects" class="nav-link" data-section="projects">المشاريع</a>
+      <a href="#contact" class="nav-link" data-section="contact">تواصل معي</a>
+    </nav>
+
+    <div class="container">
+      <section id="intro">
+        <h1>أحمد خالد</h1>
+        <span class="role">مهندس برمجيات محترف ومطوّر أنظمة متكاملة</span>
+
+        <p style="max-width: 700px; margin: 0 auto 50px; font-size: 1.15em">
+          أكثر من عقد من الزمن في بناء وتصميم حلول برمجية مبتكرة وعالية الأداء.
+          متخصص في هندسة البيانات المعقدة، تطوير واجهات المستخدم الديناميكية،
+          وإدارة البنية التحتية السحابية. أسعى دائمًا لتقديم قيمة تقنية متميزة
+          في كل مشروع.
+        </p>
+        <button class="submit-button" id="interactive-btn" style="width: auto">
+          اضغط لترى التفاعل الفوري (JS Demo)
+        </button>
+        <p
+          id="status-message"
+          style="
+            margin-top: 20px;
+            color: var(--secondary-accent);
+            font-style: italic;
+          "
+        >
+          (تجربة بسيطة لوظائف الـ JavaScript)
+        </p>
+      </section>
+
+      <section id="certificates">
+        <h2>الشهادات والتقديرات</h2>
+        <div class="awards-section">
+          <div class="award-card">
+            <h3>شهادة محترف معتمد في AWS (Solution Architect - Pro)</h3>
+            <p>
+              إثبات على الخبرة في تصميم وتوزيع أنظمة قابلة للتوسع وعالية التوافر
+              على خدمات Amazon Web Services.
+            </p>
+          </div>
+          <div class="award-card">
+            <h3>جائزة "أفضل قائد تقني للربع الرابع"</h3>
+            <p>
+              تقدير داخلي لقيادة فريق التطوير بنجاح لإطلاق منتج جديد في وقت
+              قياسي وبجودة عالية.
+            </p>
+          </div>
+          <div class="award-card">
+            <h3>شهادة Python متقدمة (Advanced Python Certification)</h3>
+            <p>
+              تغطية شاملة للمواضيع المتقدمة في Python مثل البرمجة غير المتزامنة
+              ومكتبات تعلم الآلة.
+            </p>
+          </div>
+          <div class="award-card">
+            <h3>درجة الماجستير في هندسة البرمجيات</h3>
+            <p>
+              جامعة عالمية مرموقة، مع تركيز خاص على منهجيات DevOps والأمن
+              السيبراني.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <h2>المهارات التقنية</h2>
+        <div class="skills-grid">
+          <div class="skill-item">
+            <h4>Python & Django/Flask</h4>
+            <div class="progress-bar-container">
+              <div class="progress-bar" data-level="95">95%</div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <h4>JavaScript (ES6+) & React/Vue</h4>
+            <div class="progress-bar-container">
+              <div class="progress-bar" data-level="90">90%</div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <h4>SQL (PostgreSQL) & NoSQL (MongoDB)</h4>
+            <div class="progress-bar-container">
+              <div class="progress-bar" data-level="85">85%</div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <h4>Cloud (AWS/Azure) & Docker/Kubernetes</h4>
+            <div class="progress-bar-container">
+              <div class="progress-bar" data-level="80">80%</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <h2>أبرز المشاريع</h2>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-card-content">
+              <h3>منصة تحليل البيانات المالية</h3>
+              <p>
+                نظام متكامل لتحليل بيانات سوق الأسهم، يقدّم تنبؤات لحظية
+                باستخدام خوارزميات تعلم الآلة.
+              </p>
+              <div class="tags">
+                <span>Python</span>
+                <span>Pandas</span>
+                <span>Scikit-learn</span>
+                <span>Django</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-card-content">
+              <h3>تطبيق إدارة المهام المتجاوب</h3>
+              <p>
+                تطبيق ويب متقدم يساعد الفرق على تنظيم المهام وتتبع التقدم بكفاءة
+                عالية عبر واجهة React.
+              </p>
+              <div class="tags">
+                <span>React</span>
+                <span>Node.js</span>
+                <span>MongoDB</span>
+                <span>CSS Grid</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-card-content">
+              <h3>نظام مصادقة موزع (OAuth 2.0)</h3>
+              <p>
+                تصميم وتنفيذ نظام أمان متقدم للمصادقة بين الخدمات المختلفة في
+                بيئة مايكروسرفيس.
+              </p>
+              <div class="tags">
+                <span>GoLang</span>
+                <span>Microservices</span>
+                <span>Docker</span>
+                <span>Redis</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2>تواصل معي</h2>
+        <div class="contact-form">
+          <p style="margin-bottom: 30px">
+            يسعدني الإجابة على استفساراتكم أو مناقشة فرص التعاون التقني.
+          </p>
+          <form id="contact-form-dummy">
+            <label for="name">الاسم الكريم:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="أدخل اسمك هنا"
+            />
+
+            <label for="email">البريد الإلكتروني:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="example@domain.com"
+            />
+
+            <label for="message">الرسالة/الاستفسار:</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              required
+              placeholder="أخبرني عن مشروعك أو استفسارك..."
+            ></textarea>
+
+            <button type="submit" class="submit-button">
+              إرسال الرسالة (شكلي)
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2025 أحمد خالد - كل الحقوق محفوظة. تم بناء هذه الصفحة بالكامل
+        باستخدام HTML و CSS و JavaScript.
+      </p>
+    </footer>
+
+    <script>
+      // التوثيق: دوال مساعدة للحصول على العناصر
+      const getById = (id) => document.getElementById(id);
+      const getAll = (selector) => document.querySelectorAll(selector);
+
+      // 1. وظيفة شريط التنقل (Smooth Scrolling)
+      function setupNavigation() {
+        const navLinks = getAll(".nav-link");
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute("href").substring(1);
+            const targetElement = getById(targetId);
+
+            if (targetElement) {
+              // استخدام خاصية 'smooth' للانتقال السلس
+              window.scrollTo({
+                top: targetElement.offsetTop - 60, // -60 لترك مسافة لشريط التنقل
+                behavior: "smooth",
+              });
+
+              // تحديث حالة 'active' للرابط
+              navLinks.forEach((l) => l.classList.remove("active"));
+              this.classList.add("active");
+            }
+          });
+        });
+      }
+
+      // 2. وظيفة ملء أشرطة التقدم (Progress Bars)
+      function fillProgressBars() {
+        const progressBars = getAll(".progress-bar");
+
+        progressBars.forEach((bar) => {
+          const level = bar.getAttribute("data-level");
+          bar.style.width = level + "%";
+        });
+      }
+
+      // 3. وظيفة الزر التفاعلي (JS Demo)
+      function setupInteractiveButton() {
+        const button = getById("interactive-btn");
+        const statusMessage = getById("status-message");
+        let isGreetingVisible = false;
+
+        button.addEventListener("click", function () {
+          if (!isGreetingVisible) {
+            statusMessage.innerHTML =
+              "✅ **نجاح التفاعل:** تم تغيير محتوى العنصر بلحظة! هذا هو جمال الـ JavaScript النظيف. ✨";
+            statusMessage.style.color = "#4CAF50";
+            this.textContent = "إخفاء الرسالة";
+            isGreetingVisible = true;
+          } else {
+            statusMessage.textContent = "(تجربة بسيطة لوظائف الـ JavaScript)";
+            statusMessage.style.color = "var(--secondary-accent)";
+            this.textContent = "اضغط لترى التفاعل الفوري (JS Demo)";
+            isGreetingVisible = false;
+          }
+        });
+      }
+
+      // 4. وظيفة التعامل مع نموذج الاتصال (شكلي)
+      function setupContactForm() {
+        const form = getById("contact-form-dummy");
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          alert(
+            "شكرًا لك! لقد تم تسجيل رسالتك بنجاح (هذه رسالة تنبيه من JavaScript)."
+          );
+
+          form.reset();
+        });
+      }
+
+      // تشغيل كل الوظائف عند تحميل الصفحة بالكامل
+      document.addEventListener("DOMContentLoaded", function () {
+        setupNavigation();
+        fillProgressBars();
+        setupInteractiveButton();
+        setupContactForm();
+        console.log("تم تحميل الرمز البرمجي المطور والمستجيب بالكامل.");
+      });
+    </script>
+  </body>
+</html>
